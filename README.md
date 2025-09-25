@@ -1,4 +1,3 @@
 # hbar
-# hbar
-# hbar
-# hbar
+
+Customized polybar
