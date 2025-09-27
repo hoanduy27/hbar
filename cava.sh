@@ -4,6 +4,7 @@ bar="▁▂▃▄▅▆▇█"
 dict="s/;//g;"
 config_file="/tmp/polybar_cava_config"
 current_sink=""
+num_bars=20
 
 # Function to get current default sink
 get_default_sink() {
@@ -21,7 +22,7 @@ create_cava_config() {
     local source=$1
     echo "
 [general]
-bars = 10
+bars = $num_bars
 
 [input]
 method = pulse
@@ -32,6 +33,18 @@ method = raw
 raw_target = /dev/stdout
 data_format = ascii
 ascii_max_range = 7
+
+[eq]
+1=1
+2=1
+3=1
+4=1
+5=1
+
+[smooth]
+noise_reduction = 50
+integral = 77
+
 " > "$config_file"
 }
 
@@ -41,6 +54,7 @@ while [ $i -lt ${#bar} ]; do
     dict="${dict}s/$i/${bar:$i:1}/g;"
     i=$((i+1))
 done
+# dict=${dict:7}
 
 # Function to start cava with current sink
 start_cava() {
@@ -60,7 +74,9 @@ start_cava() {
     
     # Start cava in background and capture its PID
     cava -p "$config_file" 2>/dev/null | while read -r line; do
-        echo "$line" | sed "$dict"
+        output=$(echo "$line" | sed "$dict")
+
+        echo ${output: -$(( (num_bars + 1)/2 ))}
     done &
     
     cava_pid=$!

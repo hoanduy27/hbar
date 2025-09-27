@@ -67,7 +67,7 @@ font-0 = "Ubuntu Nerd Font:style=Regular:size=11;1"
 font-1 = monospace;2
 
 
-modules-left = xworkspaces filesystem memory cpu xwindow
+modules-left = configure xworkspaces filesystem memory cpu xwindow
 
 modules-right = bluetooth wlan battery powermenu
 
@@ -85,6 +85,7 @@ dim-value = 0.8
 scroll-up   = $HOME/.config/polybar/wm-left.sh
 scroll-down = $HOME/.config/polybar/wm-right.sh
 click-right = terminator
+click-left = $HOME/.config/polybar/show-apps.sh
 
 
 ; wm-restack = generic
@@ -361,6 +362,16 @@ format = <label>
 format-font = 5
 label = %output%
 label-foreground = #c0abb6
+
+[module/configure]
+type = custom/script
+click-left = code $HOME/.config/polybar
+format = <label>
+label = %output%
+exec = echo " Tweak the bar"
+interval = 9999
+tail = true
+separator = |
 
 [module/battery]
 type = internal/battery

@@ -1,0 +1,20 @@
+* {
+  background-color: #2e2e2e56;
+  text-color: #ffffff;
+  border: 0px;
+  font: "JetBrainsMono Nerd Font 12";
+}
+
+window {
+  border-radius: 12px;
+}
+
+element {
+  background-color: #2e2e2e00;
+  text-color: #ffffff;
+}
+
+element selected {
+  background-color: #555555;
+  text-color: #bd3b3b;
+}
