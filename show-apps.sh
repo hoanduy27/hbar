@@ -2,6 +2,29 @@
 
 current_ws=$(xdotool get_desktop)
 
+find_icon() {
+    local class="$1"
+    local icon=""
+    # Lowercase the class
+    class=$(echo "$class" | tr '[:upper:]' '[:lower:]')
+
+    # Common lookup paths
+    for size in 48x48 64x64 128x128 scalable; do
+        for dir in /usr/share/icons/hicolor/$size/apps \
+                   /usr/share/icons/Adwaita/$size/apps \
+                   /usr/share/pixmaps; do
+            [ -d "$dir" ] || continue
+            for ext in png svg xpm; do
+                if [ -f "$dir/$class.$ext" ]; then
+                    echo "$dir/$class.$ext"
+                    return
+                fi
+            done
+        done
+    done
+    echo "" # fallback to empty
+}
+
 # Collect windows in current workspace
 list=""
 for wid in $(wmctrl -lx | awk -v ws="$current_ws" '$2 == ws {print $1}'); do
@@ -13,7 +36,16 @@ for wid in $(wmctrl -lx | awk -v ws="$current_ws" '$2 == ws {print $1}'); do
     [ -z "$title" ] && title="(no title)"
     [ -z "$class" ] && class="unknown"
 
-    list+="$wid\t${class}: ${title}\n"
+    # list+="$wid\t${class}: ${title}\n"
+
+    # Try to find icon
+    icon=$(find_icon "$class")
+
+    if [ -n "$icon" ]; then
+        list+="$wid\t${class}: ${title}\0icon\x1f$icon\n"
+    else
+        list+="$wid\t${class}: ${title}\n"
+    fi
 done
 
 if [ -z "$list" ]; then
@@ -28,6 +60,7 @@ current_focus=$(xdotool getwindowfocus)
 choice=$(echo -e "$list" | cut -f2 | rofi -dmenu -i -p "Running Apps" -theme ~/.config/polybar/show-apps.rasi \
     -kb-custom-1 "Alt-Tab" \
     -select-row 0 \
+    -show-icons \
     | while IFS= read -r line; do
         # Get window ID for current selection
         win_id=$(echo -e "$list" | grep "$line" | cut -f1)

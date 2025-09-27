@@ -1,8 +1,17 @@
+configuration {
+  modes: [ combi ];
+  combi-modes: [ window, drun, run ];
+}
+
+@theme "spotlight-dark"
+
+entry {
+    placeholder: "Whooshhhh";
+    cursor-color: rgb(220,20,60);
+}
+
 * {
-  background-color: #2e2e2e56;
-  text-color: #ffffff;
-  border: 0px;
-  font: "JetBrainsMono Nerd Font 12";
+  background-color: #2e2e2e17;
 }
 
 window {
@@ -10,11 +19,7 @@ window {
 }
 
 element {
-  background-color: #2e2e2e00;
-  text-color: #ffffff;
-}
-
-element selected {
-  background-color: #555555;
-  text-color: #bd3b3b;
+  orientation: horizontal;
+  children: [ element-text, element-icon ];
+  spacing: 5px;
 }
