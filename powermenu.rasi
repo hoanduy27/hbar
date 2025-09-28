@@ -3,10 +3,10 @@ configuration {
   combi-modes: [ window, drun, run ];
 }
 
-@theme "simple-tokyonight"
+@theme "squared-everforest"
 
 entry {
-    placeholder: "Whooshhhh";
+    placeholder: "Hope to see you back!";
     cursor-color: rgb(220,20,60);
 }
 
@@ -22,8 +22,4 @@ element {
   orientation: horizontal;
   children: [ element-text, element-icon ];
   spacing: 5px;
-}
-
-window {
-  location: center;
 }

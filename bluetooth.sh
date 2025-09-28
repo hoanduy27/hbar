@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+maxlen=15
 
 bluetooth_print() {
     bluetoothctl | while read -r REPLY; do
@@ -7,6 +9,7 @@ bluetooth_print() {
                 device_info=$(bluetoothctl info "$device")
                 if echo "$device_info" | grep -q "Connected: yes"; then
                     device_alias=$(echo "$device_info" | grep "Alias" | cut -d ' ' -f 2-)
+                    [ ${#device_alias} -gt $maxlen ] && device_alias="${device_alias:0:$(( maxlen*2/3 ))}...${device_alias: -$(( maxlen/3 ))}"
                     echo "%{F#669acc} %{F#fff}$device_alias"
 
                 else
