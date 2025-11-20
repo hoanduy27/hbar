@@ -1,3 +1,3 @@
 # hbar
 
-Customized polybar
+Customized polybar for me
