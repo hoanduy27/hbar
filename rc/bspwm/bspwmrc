@@ -2,20 +2,28 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+~/.config/bspwm/monitor-hotplug.sh &
 
-bspc config border_width         2
+bspc config border_width         1
 bspc config window_gap           2
 
 bspc config split_ratio          0.52
-bspc config borderless_monocle   true
+bspc config borderless_monocle   false
 bspc config gapless_monocle      true
+bspc config focused_border_color "#ddc7fd"
+
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
 bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
+bspc rule -a scpad sticky=on state=floating rectangle=1080x640+830+390
+bspc rule -a power sticky=on state=floating
+bspc rule -a ffplay sticky=on state=floating rectangle=200x20+425+1
+bspc rule -a clipboard sticky=on state=floating
+bspc rule -a clipboard sticky=on state=floating
+bspc rule -a pavucontrol state=floating rectangle=800x600+600+220
 
 sxhkd &
 
@@ -26,3 +34,4 @@ feh --bg-fill --randomize ~/Pictures/Wallpapers/*
 bspc rule -a Dmenu state=floating
 
 ibus-daemon -rxRd
+~/.local/scripts/clipboard.sh monitor &
