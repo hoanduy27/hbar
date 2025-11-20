@@ -1,9 +1,10 @@
 
 [colors]
 
-background = #272727
+; background = #243a69
+background = #243880
 
-background-alt = #cc3a000a
+background-alt = #00000000
 
 foreground = #c5c8c6
 
@@ -14,7 +15,7 @@ secondary = #8ABEB7
 
 alert = #A54242
 
-disabled = #707880
+disabled = #575757
 
 urgent = #df4545
 
@@ -22,22 +23,25 @@ success = #00a759
 
 warning = #fffb00
 
-ignore = #969696
+; ignore = #585858de
+ignore = #243880ff
 
 
-[bar/hdbar]
-width = 96%
+[bar/hdbar-left]
+monitor = ${env:MONITOR:}
+
+width = 22%
 
 height = 22
 
-radius = 10%
+; radius = 10%
 
-offset-x = 2%
+offset-x = 5%
 offset-y = 1
 
 ; dpi = 96
 
-background = ${colors.background}
+background = ${colors.background-alt}
 ; background-0 = ${colors.background-alt}
 
 ; foreground = ${colors.foreground}
@@ -46,25 +50,129 @@ background = ${colors.background}
 line-size = 3pt
 ; line-color = ${colors.warning}
 
-; border-top-size = 1
-; border-bottom-size = 1
+; border-size = 1
 
 border-color = ${colors.foreground}
 
 
-padding-left = 2
+; separator-foreground = ${colors.disabled}
 
-padding-right = 2
+bottom = false
+
+fixed-center = false
+
+font-0 = "Ubuntu Nerd Font:style=Regular:size=11;1"
+font-1 = monospace;2
 
 
-module-margin = 3
+modules-left = configure date xworkspaces xwindow
+
+cursor-click = pointer
+
+cursor-scroll = ns-resize
+
+enable-ipc = true
+
+dim-value = 0.8
+
+scroll-up   = $HOME/.config/polybar/wm-left.sh
+scroll-down = $HOME/.config/polybar/wm-right.sh
+click-right = alacritty
+click-left = $HOME/.config/polybar/show-apps.sh
 
 
-separator = 
+wm-restack = bspwm
+
+[bar/hdbar-right]
+monitor = ${env:MONITOR:}
+
+width = 32%
+
+height = 22
+
+; radius = 10%
+
+offset-x = 61%
+offset-y = 1
+
+; dpi = 96
+
+background = ${colors.ignore}
+; background-0 = ${colors.background-alt}
+
+; foreground = ${colors.foreground}
+
+
+line-size = 3pt
+; line-color = ${colors.warning}
+
+; border-size = 1
+
+border-color = ${colors.foreground}
+; separator = ""
+separator-background = ${colors.background}
+
+bottom = false
+
+fixed-center = false
+
+; font-0 = "Ubuntu Nerd Font:style=Regular:size=11;1"
+font-0 = "Ubuntu Nerd Font:style=Regular:size=11;1"
+font-1 = monospace;2
+
+
+modules-left = memory cpu filesystem power nowplaying
+; modules-right = powermenu
+
+cursor-click = pointer
+
+cursor-scroll = ns-resize
+
+enable-ipc = true
+
+dim-value = 0.8
+
+scroll-up   = $HOME/.config/polybar/wm-left.sh
+scroll-down = $HOME/.config/polybar/wm-right.sh
+click-right = alacritty
+click-left = $HOME/.config/polybar/show-apps.sh
+
+
+wm-restack = bspwm
+
+[bar/hdbar-center]
+monitor = ${env:MONITOR:}
+
+width = 30%
+
+height = 22
+
+; radius = 10%
+
+offset-x = 29%
+offset-y = 1
+
+; dpi = 96
+
+background = ${colors.background-alt}
+; background-0 = ${colors.background-alt}
+
+; foreground = ${colors.foreground}
+
+
+line-size = 3pt
+; line-color = ${colors.warning}
+
+; border-size = 1
+
+border-color = ${colors.foreground}
+
+; separator = ""
+separator-background = ${colors.background}
 
 ; separator-foreground = ${colors.disabled}
 
-bottom = true
+bottom = false
 
 fixed-center = true
 
@@ -72,11 +180,11 @@ font-0 = "Ubuntu Nerd Font:style=Regular:size=11;1"
 font-1 = monospace;2
 
 
-modules-left = xworkspaces date configure filesystem memory cpu xwindow
+; modules-left = date configure xworkspaces filesystem memory cpu xwindow
 
-modules-right = pulseaudio bluetooth wlan battery powermenu
+; modules-right = cava pulseaudio bluetooth wlan battery powermenu
 
-modules-center =  cava
+modules-right = cava pulseaudio bluetooth wlan battery
 
 cursor-click = pointer
 
@@ -89,92 +197,61 @@ dim-value = 0.8
 
 scroll-up   = $HOME/.config/polybar/wm-left.sh
 scroll-down = $HOME/.config/polybar/wm-right.sh
-click-right = terminator
+click-right = alacritty
 click-left = $HOME/.config/polybar/show-apps.sh
 
 
-; wm-restack = generic
-
-; wm-restack = bspwm
-
-; wm-restack = i3
-
-
-; override-redirect = true
-
-
-; This module is not active by default (to enable it, add it to one of the
-
-; modules-* list above).
-
-; Please note that only a single tray can exist at any time. If you launch
-
-; multiple bars with this module, only a single one will show it, the others
-
-; will produce a warning. Which bar gets the module is timing dependent and can
-
-; be quite random.
-
-; For more information, see the documentation page for this module:
-
-; https://polybar.readthedocs.io/en/stable/user/modules/tray.html
-
-
-
-; [module/systray]
-
-; type = internal/tray
-
-; format-margin = 8pt
-
-; tray-spacing = 16pt
-
-; tray-position= center
-
-; tray-scale = 1.0
+wm-restack = bspwm
 
 [module/xworkspaces]
 
+icon-default = 
+
 type = internal/xworkspaces
 
-label-active = %index%
+pin-workspaces = true
+
+label-active = %index% | %nwin% 󱇛
+label-active-background = ${colors.background}
 
 ; label-active-background = ${colors.background-alt}
 
-label-active-underline= ${colors.warning}
+; label-active-underline= #FFFFFF
 
 label-active-padding = 1
 
 
 label-occupied = %index%
-
 label-occupied-padding = 1
-
+label-occupied-background = ${colors.ignore}
 
 label-urgent = %index%
-
-label-urgent-background = ${colors.alert}
-
+label-urgent-background = ${colors.ignore}
 label-urgent-padding = 1
-
 
 label-empty = %index%
 
 label-empty-foreground = ${colors.disabled}
+label-empty-background = ${colors.ignore}
+
 
 label-empty-padding = 1
 
 reverse-scroll = true
+
 
 [module/xwindow]
 
 type = internal/xwindow
 
 format = 󱄞 <label>
+format-padding = 2
 
-label = %title:0:20:...%
+label = %class:0:20:...%
 
 label-empty = with fresh 
+
+format-background = ${colors.ignore}
 
 
 [module/filesystem]
@@ -182,17 +259,18 @@ label-empty = with fresh 
 type = internal/fs
 
 interval = 25
-
+format-mounted = <label-mounted>
+format-unmounted = <label-unmounted>
 
 mount-0 = /
 
-label-mounted = %{A1:nautilus:}%{F-} %percentage_used%%%{A}
+label-mounted = %{A1:nautilus:}%{F-} %percentage_used%% %{A}
+label-mounted-background = ${colors.background}
 
 
-label-unmounted = %{A1:nautilus:}%mountpoint% not mounted%{A}
-
+label-unmounted = %{A1:nautilus:}%mountpoint% not mounted %{A}
 label-unmounted-foreground = ${colors.disabled}
-
+label-unmounted-background = ${colors.background}
 
 [module/pulseaudio]
 
@@ -203,8 +281,11 @@ type = internal/pulseaudio
 format-volume-prefix-foreground = ${colors.primary}
 
 format-volume = <ramp-volume> <label-volume>
+format-volume-background = ${colors.background}
+format-volume-padding = 2
 
 label-volume = %percentage%%
+
 
 label-muted = 󰝟 muted
 label-muted-foreground = ${colors.disabled}
@@ -212,14 +293,15 @@ label-muted-foreground = ${colors.disabled}
 ramp-volume-0 = 󰕿
 ramp-volume-1 = 󰖀
 ramp-volume-2 = 󰕾
-ramp-volume-3 = 󰀦󰟅󰕾
+ramp-volume-3 = 󰀦󰕾
 
 ramp-volume-3-foreground = ${colors.urgent}
 
-click-right = gnome-control-center sound
+click-right = pavucontrol
 
 use-ui-max = true
 interval = 2
+
 
 [module/xkeyboard]
 
@@ -242,15 +324,16 @@ label-indicator-off = %icon%
 
 type = internal/memory
 
-format = <label> <ramp-used>
+format = <label>
+format-padding = 2
 
 interval = 2
 	
-format-prefix = " "
+format-prefix = "   "
 
 format-prefix-foreground = ${colors.primary}
 
-label = %{A1:terminator -e htop:}%gb_used%%{A}
+label = %{A1:alacritty -e htop:}%mb_used%%{A}
 
 ramp-used-0 = ▁
 ramp-used-1 = ▂
@@ -261,20 +344,24 @@ ramp-used-5 = ▆
 ramp-used-6 = ▇
 ramp-used-7 = █
 
-
+format-background = ${colors.background}
 [module/cpu]
+
 
 type = internal/cpu
 
 interval = 2
 
 format = <label> <bar-load>
+format-padding = 2
 
 format-prefix = " "
 
 format-prefix-foreground = ${colors.primary}
 
-label = %{A1:terminator -e htop:}%percentage-sum%%%{A}
+format-background = ${colors.background}
+
+label = %{A1:alacritty -e htop:}%percentage-sum%%%{A}
 
 ramp-coreload-spacing = 0
 ramp-coreload-0 = ▁
@@ -311,8 +398,13 @@ type = internal/network
 interval = 5
 
 format-connected = <label-connected>
+format-connected-background = ${colors.background}
 
 format-disconnected = <label-disconnected>
+format-disconnected-background = ${colors.background}
+
+format-connected-padding = 2
+format-disconnected-padding = 2 
 
 [module/wlan]
 
@@ -322,12 +414,12 @@ format-connected = <ramp-signal> <label-connected>
 format-disconnected = <label-disconnected>
 format-packetloss = <label-packetloss> <label-connected>
 
-interface = wlp4s0
+interface = wlp0s20f3
 
 interface-type = wireless
 
-label-connected = %{A3:gnome-control-center wifi:} %essid:0:15:...% %{F#ec9c5b}↑%upspeed% %{F#74d660}↓%downspeed%%{A}%{F-}
-label-disconnected = 󰤮%{F#707880} %{A3:gnome-control-center wifi:} disconnected%{A}
+label-connected = %{A3:~/.config/polybar/wifi.sh:} %essid:0:15:...% %{F#ec9c5b}↑%upspeed% %{F#74d660}↓%downspeed%%{A}%{F-}
+label-disconnected = 󰤮%{F#707880} %{A3:~/.config/polybar/wifi.sh:} disconnected%{A}
 
 ramp-signal-0 = 󰤟
 ramp-signal-1 = 󰤢
@@ -335,13 +427,13 @@ ramp-signal-2 = 󰤥
 ramp-signal-3 = 󰤨
 label-packetloss-0 = 󰤠
 
-click-right = gnome-control-center wifi
+click-right = ~/.config/polybar/wifi.sh
 
 [module/eth]
 
 inherit = network-base
 
-interface = enp3s0
+interface = enp0s31f6
 
 interface-type = wired
 
@@ -363,6 +455,7 @@ label = %date%
 
 label-foreground = #000000
 label-background = #FFFFFF
+label-padding = 2
 
 [settings]
 
@@ -381,16 +474,21 @@ exec = $HOME/.config/polybar/cava.sh
 format = <label>
 format-font = 5
 label = %output%
-label-foreground = #c0abb6
+label-foreground = #ffffff
+label-background = ${colors.ignore}
+label-padding = 3
 
 [module/configure]
 type = custom/script
 ; click-left = code $HOME/.config/polybar
 format = <label>
 
-format-background = #5e2712
+; format-background = #ff0000ff
+format-background = #FFFFFF
 
-label = : %{A1:code $HOME/.config/polybar:}%{F#fffb00}󰃉%{A} %{F-} > %{A1:./launch.sh:}%{F#bccee9}󰈈%{A}
+
+label = %{A1:code $HOME/.config/polybar:}%{F#636363}󰃉%{A}%{F-}
+label-padding = 2
 exec = echo "1"
 interval = 9999
 tail = true
@@ -410,7 +508,7 @@ low-at = 20
 
 ; Use the following command to list batteries and adapters:
 ; $ ls -1 /sys/class/power_supply/
-battery = BAT1
+battery = BAT0
 adapter = ADP1
 
 ; If an inotify event haven't been reported in this many
@@ -424,6 +522,18 @@ adapter = ADP1
 ; Default: 5
 poll-interval = 5
 
+
+format-charging-background = ${colors.background}
+format-discharging-background = ${colors.background}
+format-full-background = ${colors.background}
+format-low-background = ${colors.background}
+
+format-charging-padding = 2
+format-discharging-padding = 2
+format-full-padding = 2
+format-low-padding = 2
+
+
 format-charging = <animation-charging> <label-charging>
 
 format-discharging = <ramp-capacity> <label-discharging>
@@ -436,7 +546,9 @@ label-discharging = %percentage%%
 
 label-full = 󱈏
 
-label-low = Connect to charge! %percentage%%
+label-low = %percentage%%
+
+format-low-foreground = ${colors.urgent}
 
 animation-charging-0 = 󰢜
 animation-charging-1 = 󰂆
@@ -465,10 +577,27 @@ ramp-capacity-9 = 󰁹
 ; Only applies if <bar-capacity> is used
 ; bar-capacity-width = 1
 
+
+[module/nowplaying]
+type = custom/script
+exec = ~/.config/polybar/player-mpris-simple.sh
+interval = 3
+click-left = playerctl play-pause &
+format-padding = 1
+
 [module/power]
 type = custom/script
-exec = echo "⏻"
-click-left = ~/.config/polybar/powermenu.sh
+exec = ~/.config/polybar/popup-powermenu.sh
+interval = 5
+click-left = ~/.config/polybar/popup-powermenu.sh --popup &
+label-foreground = ${colors.success}
+format-background = #FFFFFF
+format-padding = 1
+
+; [module/power]
+; type = custom/script
+; exec = echo "⏻"
+; click-left = ~/.config/polybar/powermenu.sh
 
 [module/powermenu]
 type = custom/menu
@@ -476,13 +605,14 @@ type = custom/menu
 expand-right = true
 
 format-spacing = 1
-format-background = ${colors.background-alt}
+format-background = #FFFFFF
+format-padding = 2
 
-label-open = "⏻ Oyasumi nanoja~"
+label-open = ⏻ Oyasumi~
 label-open-foreground = ${colors.success}
 label-close = " Just a lil bit moar~"
 
-label-close-foreground = ${colors.ignore}
+label-close-foreground = ${colors.alert}
 label-separator = |
 label-separator-foreground = ${colors.foreground}
 
@@ -501,12 +631,12 @@ menu-0-2-foreground = ${colors.success}
 
 menu-0-3 = "󰈆"
 menu-0-3-exec = menu-open-4
-menu-0-3-foreground = ${colors.warning}
+menu-0-3-foreground = ${colors.urgent}
 
 
 menu-0-4 = ""
-menu-0-4-exec = loginctl lock-session
-menu-0-4-foreground = ${colors.ignore}
+menu-0-4-exec = betterlockscreen -l dimblur
+menu-0-4-foreground = ${colors.urgent}
 
 
 
@@ -543,6 +673,16 @@ menu-4-1-exec = loginctl kill-user $(whoami)
 menu-4-1-foreground = ${colors.urgent}
 
 
+[module/tray]
+type=internal/tray
+format = <tray>
+format-padding = 2
+format-background=${colors.background}
+
+tray-padding = 3
+tray-spacing = 5
+tray-background = ${colors.background}
+
 [module/bluetooth]
 type = custom/script
 exec = ~/.config/polybar/bluetooth.sh
@@ -550,6 +690,8 @@ tail = true
 click-left = ~/.config/polybar/bluetooth.sh --toggle &
 click-right = gnome-control-center bluetooth
 
+format-background = ${colors.background}
+format-padding = 0
 [module/bspwm]
 type = internal/bspwm
 
@@ -559,6 +701,8 @@ type = internal/bspwm
 ; behave correctly.
 ; Default: true
 pin-workspaces = true
+
+group-by-monitor = true
 
 ; Output mode flags after focused state label
 ; Default: false
@@ -667,8 +811,9 @@ label-empty-foreground = #55
 
 ; Separator in between workspaces
 label-separator = |
-label-separator-padding = 2
+label-separator-padding = 0
 label-separator-foreground = #ffb52a
+format-background = ${colors.ignore}
 
 [global/wm]
 ; Adjust the _NET_WM_STRUT_PARTIAL bottom value
