@@ -1,22 +1,25 @@
 #!/bin/bash
 
 setup_monitors() {
-
 	# Auto-detect connected monitors
-	MONITORS=$(xrandr --query | grep " connected" | cut -d" " -f1)
+	MONITORS=$(xrandr --query | grep " connected" | grep -v eDP | cut -d" " -f1)
 	MONITOR_COUNT=$(echo "$MONITORS" | wc -l)
 	
 	# Collect all windows before reconfiguration
 	all_windows=($(bspc query -N -n .window))
 
-        declare -A window_info
+    declare -A window_info
+	
+	echo "Detected monitors: $MONITORS"
+	echo "Monitor count: $MONITOR_COUNT"
+	
 	for  win in "${all_windows[@]}"; do
 	    desktop=$(bspc query -D -n "$win" --names)
 	    window_info[$win]=$desktop
 	done
 	
-	if [ "$MONITOR_COUNT" -eq 3 ]; then 
-	    ~/.screenlayout/display3.sh
+	if [ "$MONITOR_COUNT" -eq 2 ]; then 
+	    ~/.config/bspwm/display2.sh
 	# Setup xrandr for extended displays (not mirrored)
 	elif [ "$MONITOR_COUNT" -gt 1 ]; then
 	    echo "Setting up $MONITOR_COUNT monitors for extended display..."
@@ -41,8 +44,7 @@ setup_monitors() {
 	# MONITORS=$(bspc query -M --names)
 	# ACTUAL_COUNT=$(echo "$MONITORS" | wc -l)
 
-	echo "Detected monitors: $MONITORS"
-	echo "Monitor count: $MONITOR_COUNT"
+	
 
 	if [ "$MONITOR_COUNT" -eq 1 ]; then
 	    # Single monitor: assign all desktops

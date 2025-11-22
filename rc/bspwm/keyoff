@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xinput list | grep "AT Translated" | cut -d'=' -f2 | cut -d$'\t' -f1 | xargs -I {} xinput float {}

@@ -2,11 +2,11 @@
 [colors]
 
 ; background = #243a69
-background = #243880
+background = #071a5f
 
 background-alt = #00000000
 
-foreground = #c5c8c6
+foreground = #cfcfcfde
 
 primary = #F0C674
 ; primary = #FF
@@ -24,7 +24,7 @@ success = #00a759
 warning = #fffb00
 
 ; ignore = #585858de
-ignore = #243880ff
+ignore = #7e7e7ebb
 
 
 [bar/hdbar-left]
@@ -211,7 +211,7 @@ type = internal/xworkspaces
 
 pin-workspaces = true
 
-label-active = %index% | %nwin% 󱇛
+label-active = %index%
 label-active-background = ${colors.background}
 
 ; label-active-background = ${colors.background-alt}
@@ -247,7 +247,7 @@ type = internal/xwindow
 format = 󱄞 <label>
 format-padding = 2
 
-label = %class:0:20:...%
+label = %title:0:20:...%
 
 label-empty = with fresh 
 
@@ -414,7 +414,7 @@ format-connected = <ramp-signal> <label-connected>
 format-disconnected = <label-disconnected>
 format-packetloss = <label-packetloss> <label-connected>
 
-interface = wlp0s20f3
+interface = wlp3s0
 
 interface-type = wireless
 

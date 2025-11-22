@@ -2,10 +2,8 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-~/.config/bspwm/monitor-hotplug.sh &
-
 bspc config border_width         1
-bspc config window_gap           2
+bspc config window_gap           4
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   false
@@ -28,10 +26,13 @@ bspc rule -a pavucontrol state=floating rectangle=800x600+600+220
 sxhkd &
 
 $HOME/.config/polybar/launch.sh
-picom &
+picom --experimental-backends &
 feh --bg-fill --randomize ~/Pictures/Wallpapers/*
 
 bspc rule -a Dmenu state=floating
 
 ibus-daemon -rxRd
-~/.local/scripts/clipboard.sh monitor &
+
+~/.config/bspwm/keyoff
+
+~/.config/bspwm/monitor-hotplug.sh &
