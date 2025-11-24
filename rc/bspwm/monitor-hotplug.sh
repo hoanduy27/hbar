@@ -20,6 +20,11 @@ setup_monitors() {
 	
 	if [ "$MONITOR_COUNT" -eq 2 ]; then 
 	    ~/.config/bspwm/display2.sh
+
+		if bspc query -M -m eDP-1 &>/dev/null; then
+			bspc monitor eDP-1 -r
+		fi
+
 	# Setup xrandr for extended displays (not mirrored)
 	elif [ "$MONITOR_COUNT" -gt 1 ]; then
 	    echo "Setting up $MONITOR_COUNT monitors for extended display..."

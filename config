@@ -2,7 +2,7 @@
 [colors]
 
 ; background = #243a69
-background = #071a5f
+background = #07270f
 
 background-alt = #00000000
 
@@ -24,7 +24,7 @@ success = #00a759
 warning = #fffb00
 
 ; ignore = #585858de
-ignore = #7e7e7ebb
+ignore = #5d6a968a
 
 
 [bar/hdbar-left]
@@ -34,7 +34,7 @@ width = 22%
 
 height = 22
 
-; radius = 10%
+radius = 10%
 
 offset-x = 5%
 offset-y = 1
@@ -90,7 +90,7 @@ width = 32%
 
 height = 22
 
-; radius = 10%
+radius = 10%
 
 offset-x = 61%
 offset-y = 1
@@ -147,7 +147,7 @@ width = 30%
 
 height = 22
 
-; radius = 10%
+radius = 10%
 
 offset-x = 29%
 offset-y = 1

@@ -2,13 +2,15 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-bspc config border_width         1
-bspc config window_gap           4
+~/.config/bspwm/monitor-hotplug.sh &
+
+bspc config border_width         2
+bspc config window_gap           3
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   false
 bspc config gapless_monocle      true
-bspc config focused_border_color "#ddc7fd"
+bspc config focused_border_color "#e6f7ea"
 
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on
@@ -26,13 +28,12 @@ bspc rule -a pavucontrol state=floating rectangle=800x600+600+220
 sxhkd &
 
 $HOME/.config/polybar/launch.sh
-picom --experimental-backends &
-feh --bg-fill --randomize ~/Pictures/Wallpapers/*
+picom &
+
+$HOME/.config/bspwm/change_wallpaper.sh &
 
 bspc rule -a Dmenu state=floating
 
 ibus-daemon -rxRd
 
 ~/.config/bspwm/keyoff
-
-~/.config/bspwm/monitor-hotplug.sh &
