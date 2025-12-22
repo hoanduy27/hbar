@@ -4,7 +4,7 @@ bar="▁▂▃▄▅▆▇█"
 dict="s/;//g;"
 config_file="/tmp/polybar_cava_config"
 current_sink=""
-num_bars=20
+num_bars=8
 
 # Function to get current default sink
 get_default_sink() {
@@ -22,7 +22,7 @@ create_cava_config() {
     local source=$1
     echo "
 [general]
-bars = $num_bars
+bars = $(( num_bars * 2 ))
 
 [input]
 method = pulse
@@ -76,7 +76,7 @@ start_cava() {
     cava -p "$config_file" 2>/dev/null | while read -r line; do
         output=$(echo "$line" | sed "$dict")
 
-        echo ${output: -$(( (num_bars + 1)/2 ))}
+        echo ${output: -$num_bars}
     done &
     
     cava_pid=$!

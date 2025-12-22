@@ -7,5 +7,5 @@ if [ "$player_status" = "Playing" ]; then
 elif [ "$player_status" = "Paused" ]; then
     echo "$(playerctl metadata artist)  $(playerctl metadata title)"
 else
-    echo "可愛くてごめん"
+    echo "Just stay funky mate"
 fi

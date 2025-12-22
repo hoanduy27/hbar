@@ -2,7 +2,9 @@
 [colors]
 
 ; background = #243a69
-background = #243880
+background = #321d70
+
+background-secondary = #b9addb
 
 background-alt = #00000000
 
@@ -15,7 +17,7 @@ secondary = #8ABEB7
 
 alert = #A54242
 
-disabled = #575757
+disabled = #878787
 
 urgent = #df4545
 
@@ -24,15 +26,14 @@ success = #00a759
 warning = #fffb00
 
 ; ignore = #585858de
-ignore = #243880ff
-
+ignore = #4a162bff
 
 [bar/hdbar-left]
 monitor = ${env:MONITOR:}
 
 width = 22%
 
-height = 22
+height = 18
 
 ; radius = 10%
 
@@ -47,25 +48,25 @@ background = ${colors.background-alt}
 ; foreground = ${colors.foreground}
 
 
-line-size = 3pt
+line-size = 0pt
 ; line-color = ${colors.warning}
 
 ; border-size = 1
 
 border-color = ${colors.foreground}
 
-
+separator = " "
 ; separator-foreground = ${colors.disabled}
 
 bottom = false
 
 fixed-center = false
 
-font-0 = "Ubuntu Nerd Font:style=Regular:size=11;1"
+font-0 = "Ubuntu Nerd Font:style=Regular:size=10;1"
 font-1 = monospace;2
 
 
-modules-left = configure date xworkspaces xwindow
+modules-left = configure reload wallpaper date xworkspaces xwindow
 
 cursor-click = pointer
 
@@ -88,7 +89,7 @@ monitor = ${env:MONITOR:}
 
 width = 32%
 
-height = 22
+height = 18
 
 ; radius = 10%
 
@@ -103,7 +104,7 @@ background = ${colors.ignore}
 ; foreground = ${colors.foreground}
 
 
-line-size = 3pt
+line-size = 0pt
 ; line-color = ${colors.warning}
 
 ; border-size = 1
@@ -117,8 +118,11 @@ bottom = false
 fixed-center = false
 
 ; font-0 = "Ubuntu Nerd Font:style=Regular:size=11;1"
-font-0 = "Ubuntu Nerd Font:style=Regular:size=11;1"
-font-1 = monospace;2
+
+font-0 = "Tahoma:style=Regular:size=10;1"
+font-1 = "Ubuntu Nerd Font:style=Regular:size=10;1"
+font-2 = "Noto Sans CJK JP:style=Regular:size=10;1"
+font-3 = monospace;2
 
 
 modules-left = memory cpu filesystem power nowplaying
@@ -145,7 +149,7 @@ monitor = ${env:MONITOR:}
 
 width = 30%
 
-height = 22
+height = 18
 
 ; radius = 10%
 
@@ -160,23 +164,23 @@ background = ${colors.background-alt}
 ; foreground = ${colors.foreground}
 
 
-line-size = 3pt
+line-size = 0pt
 ; line-color = ${colors.warning}
 
 ; border-size = 1
 
 border-color = ${colors.foreground}
 
-; separator = ""
-separator-background = ${colors.background}
+separator = " "
+separator-background = ${colors.ignore}
 
 ; separator-foreground = ${colors.disabled}
 
 bottom = false
 
-fixed-center = true
+fixed-center = false
 
-font-0 = "Ubuntu Nerd Font:style=Regular:size=11;1"
+font-0 = "Ubuntu Nerd Font:style=Regular:size=10;1"
 font-1 = monospace;2
 
 
@@ -184,8 +188,7 @@ font-1 = monospace;2
 
 ; modules-right = cava pulseaudio bluetooth wlan battery powermenu
 
-modules-right = cava pulseaudio bluetooth wlan battery
-
+modules-right = pulseaudio cava backlight bluetooth wlan battery 
 cursor-click = pointer
 
 cursor-scroll = ns-resize
@@ -202,6 +205,74 @@ click-left = $HOME/.config/polybar/show-apps.sh
 
 
 wm-restack = bspwm
+[module/backlight]
+type = internal/backlight
+
+; Use the following command to list available cards:
+; $ ls -1 /sys/class/backlight/
+; Default: first usable card in /sys/class/backlight (new in version 3.7.0)
+card = intel_backlight
+
+; Use the `/sys/class/backlight/.../actual-brightness` file
+; rather than the regular `brightness` file.
+; New in version 3.6.0
+; Changed in version: 3.7.0: Defaults to true also on amdgpu backlights
+; Default: true
+use-actual-brightness = true
+
+; Interval in seconds after which after which the current brightness is read
+; (even if no update is detected).
+; Use this as a fallback if brightness updates are not registering in polybar
+; (which happens if the use-actual-brightness is false).
+; There is no guarantee on the precisio of this timing.
+; Set to 0 to turn off
+; New in version 3.7.0
+; Default: 0 (5 if use-actual-brightness is false)
+poll-interval = 0
+
+; Enable changing the backlight with the scroll wheel
+; NOTE: This may require additional configuration on some systems. Polybar will
+; write to `/sys/class/backlight/${self.card}/brightness` which requires polybar
+; to have write access to that file.
+; DO NOT RUN POLYBAR AS ROOT. 
+; The recommended way is to add the user to the
+; `video` group and give that group write-privileges for the `brightness` file.
+; See the ArchWiki for more information:
+; https://wiki.archlinux.org/index.php/Backlight#ACPI
+; Default: false
+enable-scroll = true
+
+; Interval for changing the brightness (in percentage points).
+; New in version 3.7.0
+; Default: 5
+scroll-interval = 10
+
+; Available tags:
+;   <label> (default)
+;   <ramp>
+;   <bar>
+format = <ramp> / <bar>
+
+format-background = ${colors.background}
+
+; Available tokens:
+;   %percentage% (default)
+label = %percentage%%
+
+; Only applies if <ramp> is used
+ramp-0 = 󰃜
+ramp-1 = 󰃛
+ramp-2 = 󰃚
+ramp-3 = 󰃝
+ramp-4 = 󰃞
+ramp-5 = 󰃟
+ramp-6 = 󰃠
+
+; Only applies if <bar> is used
+bar-width = 6
+bar-indicator = 
+bar-fill = 󰌵
+bar-empty = 󰌶
 
 [module/xworkspaces]
 
@@ -213,6 +284,7 @@ pin-workspaces = true
 
 label-active = %index% | %nwin% 󱇛
 label-active-background = ${colors.background}
+label-active-underline = #ffffff
 
 ; label-active-background = ${colors.background-alt}
 
@@ -223,7 +295,9 @@ label-active-padding = 1
 
 label-occupied = %index%
 label-occupied-padding = 1
-label-occupied-background = ${colors.ignore}
+label-occupied-background = #ffffff
+label-occupied-foreground = #000000
+label-occupied-underline = #ffffff
 
 label-urgent = %index%
 label-urgent-background = ${colors.ignore}
@@ -484,15 +558,49 @@ type = custom/script
 format = <label>
 
 ; format-background = #ff0000ff
-format-background = #FFFFFF
+format-background = ${colors.background}
 
 
-label = %{A1:code $HOME/.config/polybar:}%{F#636363}󰃉%{A}%{F-}
+label = %{A1:code $HOME/.config/polybar:}󰟪%{A}
 label-padding = 2
 exec = echo "1"
 interval = 9999
 tail = true
 ; format-underline = ${colors.success}
+
+
+[module/wallpaper]
+type = custom/script
+; click-left = code $HOME/.config/polybar
+format = <label>
+
+; format-background = #ff0000ff
+format-background = ${colors.background}
+
+
+label = %{A1:feh --bg-fill --randomize ~/Pictures/Wallpapers/winter/*:}%{A}
+label-padding = 2
+exec = echo "1"
+interval = 9999
+tail = true
+; format-underline = ${colors.success}
+
+[module/reload]
+type = custom/script
+; click-left = code $HOME/.config/polybar
+format = <label>
+
+; format-background = #ff0000ff
+format-background = ${colors.background}
+
+
+label = %{A1:~/.config/polybar/launch.sh &:}󰘗%{A}
+label-padding = 2
+exec = echo "1"
+interval = 9999
+tail = true
+; format-underline = ${colors.success}
+
 
 [module/battery]
 type = internal/battery
@@ -613,7 +721,7 @@ label-open-foreground = ${colors.success}
 label-close = " Just a lil bit moar~"
 
 label-close-foreground = ${colors.alert}
-label-separator = |
+label-separator = "|"
 label-separator-foreground = ${colors.foreground}
 
 ;Powermenu
@@ -710,15 +818,15 @@ inline-mode = false
 
 ; Create click handler used to focus workspace
 ; Default: true
-enable-click = false
+enable-click = true
 
 ; Create scroll handlers used to cycle workspaces
 ; Default: true
-enable-scroll = false
+enable-scroll = true
 
 ; Set the scroll cycle direction 
 ; Default: true
-reverse-scroll = false
+reverse-scroll = true
 
 ; Use fuzzy (partial) matching on labels when assigning 
 ; icons to workspaces
@@ -760,7 +868,7 @@ label-dimmed-focused-background = #f00
 ;   %icon%
 ;   %index%
 ; Default: %icon% %name%
-label-focused = %icon%
+label-focused = %icon% %index%
 label-focused-foreground = #ffffff
 label-focused-background = #3f3f3f
 label-focused-underline = #fba922
@@ -770,7 +878,7 @@ label-focused-underline = #fba922
 ;   %icon%
 ;   %index%
 ; Default: %icon% %name%
-label-occupied = %icon%
+label-occupied = %icon% %index%
 label-occupied-underline = #555555
 
 ; Available tokens:
@@ -778,7 +886,7 @@ label-occupied-underline = #555555
 ;   %icon%
 ;   %index%
 ; Default: %icon% %name%
-label-urgent = %icon%
+label-urgent = %icon% %index%
 label-urgent-foreground = #000000
 label-urgent-background = #bd2c40
 label-urgent-underline = #9b0a20
@@ -788,7 +896,7 @@ label-urgent-underline = #9b0a20
 ;   %icon%
 ;   %index%
 ; Default: %icon% %name%
-label-empty = %icon%
+label-empty = %icon% %index%
 label-empty-foreground = #55
 
 ; The following labels will be used to indicate the layout/mode
