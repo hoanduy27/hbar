@@ -4,7 +4,7 @@ bar="▁▂▃▄▅▆▇█"
 dict="s/;//g;"
 config_file="/tmp/polybar_cava_config"
 current_sink=""
-num_bars=8
+num_bars=7
 
 # Function to get current default sink
 get_default_sink() {
@@ -12,7 +12,7 @@ get_default_sink() {
 }
 
 # Function to get monitor source for a sink
-get_monitor_source() {
+get_monitor_source() { 
     local sink=$1
     pactl list sinks short 2>/dev/null | grep "$sink" | awk '{print $2".monitor"}'
 }

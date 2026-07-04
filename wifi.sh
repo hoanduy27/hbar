@@ -121,7 +121,18 @@ if [ -n "$SAVED_CONNECTION" ]; then
     if nmcli connection up "$SAVED_CONNECTION" 2>/dev/null; then
         notify-send "WiFi" "Connected to $SELECTED_SSID"
     else
-        notify-send "WiFi Error" "Failed to connect to $SELECTED_SSID"
+        PASSWORD=$(rofi -dmenu -password -p "Password for $SELECTED_SSID" \
+            -theme ~/.config/polybar/show-apps.rasi \
+            -theme-str "window {width: 400px;} entry {placeholder: \"Password for [$SELECTED_SSID]\";}")
+        
+        if [ -n "$PASSWORD" ]; then
+            if nmcli device wifi connect "$SELECTED_SSID" password "$PASSWORD" 2>/dev/null; then
+                notify-send "WiFi" "Connected to $SELECTED_SSID"
+            else
+                notify-send "WiFi Error" "Failed to connect. Check password."
+            fi
+        fi
+        
     fi
     exit 0
 fi

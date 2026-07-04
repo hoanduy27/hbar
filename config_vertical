@@ -39,13 +39,13 @@ ignore = #55555599
 [bar/hdbar-left]
 monitor = ${env:MONITOR:}
 
-width = 22%
+width = 98%
 
 height = 18
 
 ; radius = 10%
 
-offset-x = 5%
+offset-x = 1%
 offset-y = 1
 
 ; dpi = 96
@@ -71,72 +71,14 @@ bottom = false
 
 fixed-center = false
 
-font-0 = "Ubuntu Nerd Font:style=Regular:size=10;1"
-font-1 = monospace;2
-
+font-0 = "Tahoma:style=Regular:size=10;1"
+font-1 = "Ubuntu Nerd Font:style=Regular:size=10;1"
+font-2 = "Noto Sans CJK JP:style=Regular:size=10;1"
+font-3 = monospace;2
 
 modules-left = date configure reload wallpaper xworkspaces xwindow
 
-cursor-click = pointer
-
-cursor-scroll = ns-resize
-
-enable-ipc = true
-
-dim-value = 0.8
-
-scroll-up   = $HOME/.config/polybar/wm-left.sh
-scroll-down = $HOME/.config/polybar/wm-right.sh
-click-right = alacritty
-click-left = $HOME/.config/polybar/show-apps.sh
-
-
-wm-restack = bspwm
-
-[bar/hdbar-right]
-monitor = ${env:MONITOR:}
-
-width = 50%
-
-height = 15
-
-; radius = 10%
-
-offset-x = 45%
-offset-y = 0
-
-; dpi = 96
-
-background = ${colors.ignore}
-; background = ${colors.background-alt}
-
-; foreground = ${colors.foreground}
-
-
-line-size = 0pt
-; line-color = ${colors.warning}
-
-; border-size = 1
-
-border-color = ${colors.foreground}
-; separator = ""
-separator-background = ${colors.background}
-
-bottom = true
-
-fixed-center = false
-
-; font-0 = "Ubuntu Nerd Font:style=Regular:size=11;1"
-
-font-0 = "Tahoma:style=Regular:size=9;1"
-font-1 = "Ubuntu Nerd Font:style=Regular:size=9;1"
-font-2 = "Noto Sans CJK JP:style=Regular:size=9;1"
-font-3 = monospace;2
-
-
-modules-left = pulseaudio cava nowplaying
-; modules-right = powermenu
-; modules-right = memory cpu filesystem power nowplaying
+modules-right = backlight bluetooth wlan memory cpu filesystem battery power
 
 cursor-click = pointer
 
@@ -153,17 +95,18 @@ click-left = $HOME/.config/polybar/show-apps.sh
 
 
 wm-restack = bspwm
+
 
 [bar/hdbar-center]
 monitor = ${env:MONITOR:}
 
-width = 37%
+width = 98%
 
 height = 18
 
 ; radius = 10%
 
-offset-x = 27%
+offset-x = 1%
 offset-y = 1
 
 ; dpi = 96
@@ -186,7 +129,7 @@ separator-background = ${colors.ignore}
 
 ; separator-foreground = ${colors.disabled}
 
-bottom = false
+bottom = true
 
 fixed-center = false
 
@@ -200,8 +143,7 @@ font-3 = monospace;2
 
 ; modules-right = cava pulseaudio bluetooth wlan battery powermenu
 
-modules-right = backlight bluetooth wlan memory cpu filesystem battery power
-cursor-click = pointer
+modules-right = pulseaudio cava nowplaying
 
 cursor-scroll = ns-resize
 
@@ -217,6 +159,68 @@ click-left = $HOME/.config/polybar/show-apps.sh
 
 
 wm-restack = bspwm
+
+[bar/hdbar-right]
+monitor = ${env:MONITOR:}
+
+width = 42%
+
+height = 18
+
+; radius = 10%
+
+offset-x = 57%
+offset-y = 1
+
+; dpi = 96
+
+background = ${colors.ignore}
+; background = ${colors.background-alt}
+
+; foreground = ${colors.foreground}
+
+
+line-size = 0pt
+; line-color = ${colors.warning}
+
+; border-size = 1
+
+border-color = ${colors.foreground}
+; separator = ""
+separator-background = ${colors.background}
+
+bottom = false
+
+fixed-center = false
+
+; font-0 = "Ubuntu Nerd Font:style=Regular:size=11;1"
+
+font-0 = "Tahoma:style=Regular:size=10;1"
+font-1 = "Ubuntu Nerd Font:style=Regular:size=10;1"
+font-2 = "Noto Sans CJK JP:style=Regular:size=10;1"
+font-3 = monospace;2
+
+
+modules-left = pulseaudio nowplaying
+; modules-right = powermenu
+; modules-right = memory cpu filesystem power nowplaying
+
+cursor-click = pointer
+
+cursor-scroll = ns-resize
+
+enable-ipc = true
+
+dim-value = 0.8
+
+scroll-up   = $HOME/.config/polybar/wm-left.sh
+scroll-down = $HOME/.config/polybar/wm-right.sh
+click-right = alacritty
+click-left = $HOME/.config/polybar/show-apps.sh
+
+
+wm-restack = bspwm
+
 [module/backlight]
 type = internal/backlight
 
@@ -367,7 +371,7 @@ type = internal/pulseaudio
 
 format-volume-prefix-foreground = ${colors.primary}
 
-format-volume = <label-volume> %{B#1a2e1a} %{F#ffffff} <ramp-volume>
+format-volume = 󰽯<label-volume> %{B#1a2e1a} %{F#ffffff} <ramp-volume>
 format-volume-background = ${colors.background}
 format-volume-padding = 2
 format-muted-background = ${colors.disabled}
@@ -383,28 +387,17 @@ label-muted = 󰝟
 ; ramp-volume-2 = 󰕾
 ; ramp-volume-3 = 󰀦󰕾
 ; ramp-volume-3-foreground = ${colors.urgent}
-; ramp-volume-0 = ppp
-; ramp-volume-1 = pp
-; ramp-volume-2 = p
-; ramp-volume-3 = mp
-; ramp-volume-4 = mf
-; ramp-volume-5 = 󰀦f
-; ramp-volume-6 = 󰀦ff
-; ramp-volume-7 = 󰀦fff
-ramp-volume-0 = 󰽯─────────
-ramp-volume-1 = ─󰽯────────
-ramp-volume-2 = ──󰽯───────
-ramp-volume-3 = ───󰽯──────
-ramp-volume-4 = ────󰽯─────
-ramp-volume-5 = ─────󰽯────
-ramp-volume-6 = ──────󰽯───
-ramp-volume-7 = ───────󰽯──
-ramp-volume-8 = ────────󰽯─
-ramp-volume-9 = ─────────󰽯
-
+ramp-volume-0 = ppp
+ramp-volume-1 = pp
+ramp-volume-2 = p
+ramp-volume-3 = mp
+ramp-volume-4 = mf
+ramp-volume-5 = f
+ramp-volume-6 = 󰀦ff
+ramp-volume-7 = 󰀦fff
+ramp-volume-5-foreground = ${colors.urgent}
+ramp-volume-6-foreground = ${colors.urgent}
 ramp-volume-7-foreground = ${colors.urgent}
-ramp-volume-8-foreground = ${colors.urgent}
-ramp-volume-9-foreground = ${colors.urgent}
 
 click-right = pavucontrol
 
@@ -527,7 +520,7 @@ interface = wlp0s20f3
 
 interface-type = wireless
 
-label-connected = %{A3:~/.config/polybar/wifi.sh:} %essid:0:15:...% %{F#ec9c5b}↑%upspeed% %{F#74d660}↓%downspeed%%{A}%{F-}
+label-connected = %{A3:~/.config/polybar/wifi.sh:} %essid:0:15:...%
 label-disconnected = 󰤮%{F#707880} %{A3:~/.config/polybar/wifi.sh:} disconnected%{A}
 
 ramp-signal-0 = 󰤟
@@ -586,8 +579,6 @@ label = %output%
 label-foreground = #ffffff
 label-background = ${colors.ignore}
 label-padding = 3
-click-left = playerctl play-pause &
-click-right = playerctl next &
 
 [module/configure]
 type = custom/script
@@ -668,10 +659,10 @@ adapter = ADP1
 poll-interval = 5
 
 
-format-charging-background = ${colors.success}
+format-charging-background = ${colors.background}
 format-discharging-background = ${colors.background}
-format-full-background = ${colors.success}
-format-low-background = ${colors.urgent}
+format-full-background = ${colors.background}
+format-low-background = ${colors.background}
 
 format-charging-padding = 2
 format-discharging-padding = 2
@@ -693,8 +684,7 @@ label-full = 󱈏
 
 label-low = %percentage%%
 
-; format-low-foreground = ${colors.urgent}
-; format-charging-foreground = ${colors.success}
+format-low-foreground = ${colors.urgent}
 
 animation-charging-0 = 󰢜
 animation-charging-1 = 󰂆

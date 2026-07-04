@@ -16,6 +16,7 @@ entry {
 
 window {
   border-radius: 12px;
+  width: 30%;
 }
 
 element {
