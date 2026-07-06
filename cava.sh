@@ -1,6 +1,7 @@
 #!/bin/bash
 
 bar="▁▂▃▄▅▆▇█"
+# bar="▔🮂🮃▀🮄🮅🮆█"
 dict="s/;//g;"
 config_file="/tmp/polybar_cava_config"
 current_sink=""

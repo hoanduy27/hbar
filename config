@@ -93,7 +93,7 @@ click-left = $HOME/.config/polybar/show-apps.sh
 
 wm-restack = bspwm
 
-[bar/hdbar-right]
+[bar/hdbar-bottom]
 monitor = ${env:MONITOR:}
 
 width = 50%
@@ -367,15 +367,16 @@ type = internal/pulseaudio
 
 format-volume-prefix-foreground = ${colors.primary}
 
-format-volume = <label-volume> %{B#1a2e1a} %{F#ffffff} <ramp-volume>
+format-volume = 󰖀 <ramp-volume> | <label-volume>
 format-volume-background = ${colors.background}
 format-volume-padding = 2
+format-muted = 󰝟 <ramp-volume> | <label-muted>
 format-muted-background = ${colors.disabled}
 format-muted-padding = 2
 
 label-volume = %decibels% dB
 
-label-muted = 󰝟
+label-muted = a silent voice
 ; label-muted-foreground = ${colors.disabled}
 
 ; ramp-volume-0 = 󰕿
@@ -391,20 +392,22 @@ label-muted = 󰝟
 ; ramp-volume-5 = 󰀦f
 ; ramp-volume-6 = 󰀦ff
 ; ramp-volume-7 = 󰀦fff
-ramp-volume-0 = 󰽯─────────
-ramp-volume-1 = ─󰽯────────
-ramp-volume-2 = ──󰽯───────
-ramp-volume-3 = ───󰽯──────
-ramp-volume-4 = ────󰽯─────
-ramp-volume-5 = ─────󰽯────
-ramp-volume-6 = ──────󰽯───
-ramp-volume-7 = ───────󰽯──
-ramp-volume-8 = ────────󰽯─
-ramp-volume-9 = ─────────󰽯
 
+ramp-volume-0 = 󰽯ppp▁▁▁▁▁▁▁
+ramp-volume-1 = ▂󰽯 pp▁▁▁▁▁▁
+ramp-volume-2 = ▂▃󰽯  p▁▁▁▁▁
+ramp-volume-3 = ▂▃▄󰽯 mp▁▁▁▁
+ramp-volume-4 = ▂▃▄▅󰽯 mf▁▁▁
+ramp-volume-5 = ▂▃▄▅▆󰽯  f▁▁
+ramp-volume-6 = ▂▃▄▅▆▇󰽯 ff▁
+ramp-volume-7 = ▂▃▄▅▆▇█󰽯fff
+
+
+
+ramp-volume-4-foreground = ${colors.warning}
+ramp-volume-5-foreground = ${colors.warning}
+ramp-volume-6-foreground = ${colors.urgent}
 ramp-volume-7-foreground = ${colors.urgent}
-ramp-volume-8-foreground = ${colors.urgent}
-ramp-volume-9-foreground = ${colors.urgent}
 
 click-right = pavucontrol
 
@@ -442,7 +445,7 @@ format-prefix = "   "
 
 format-prefix-foreground = ${colors.primary}
 
-label = %{A1:alacritty -e htop:}%mb_used%%{A}
+label = %{A1:alacritty --class polybar-popup -e htop:}%mb_used%%{A}
 
 ramp-used-0 = ▁
 ramp-used-1 = ▂
@@ -470,7 +473,7 @@ format-prefix-foreground = ${colors.primary}
 
 format-background = ${colors.background}
 
-label = %{A1:alacritty -e htop:}%percentage-sum%%%{A}
+label = %{A1:alacritty --class polybar-popup -e htop:}%percentage-sum%%%{A}
 
 ramp-coreload-spacing = 0
 ramp-coreload-0 = ▁
@@ -527,7 +530,7 @@ interface = wlp0s20f3
 
 interface-type = wireless
 
-label-connected = %{A3:~/.config/polybar/wifi.sh:} %essid:0:15:...% %{F#ec9c5b}↑%upspeed% %{F#74d660}↓%downspeed%%{A}%{F-}
+label-connected = %{A3:alacritty --class polybar-popup -e nmtui connect:} %essid:0:15:...% %{F#ec9c5b}↑%upspeed% %{F#74d660}↓%downspeed%%{A}%{F-}
 label-disconnected = 󰤮%{F#707880} %{A3:~/.config/polybar/wifi.sh:} disconnected%{A}
 
 ramp-signal-0 = 󰤟
@@ -536,7 +539,8 @@ ramp-signal-2 = 󰤥
 ramp-signal-3 = 󰤨
 label-packetloss-0 = 󰤠
 
-click-right = ~/.config/polybar/wifi.sh
+; click-right = ~/.config/polybar/wifi.sh
+click-right = alacritty --class polybar-popup -e nmtui connect
 
 [module/eth]
 
