@@ -25,6 +25,10 @@ element {
   spacing: 5px;
 }
 
+element selected {
+  background-color: #7AE2CF;
+}
+
 window {
   location: center;
 }

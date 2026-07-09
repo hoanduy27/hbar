@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Restart the notification read-state watcher
+pkill -f notification-watcher.sh
+~/.config/polybar/notification-watcher.sh >>/tmp/notification-watcher.log 2>&1 & disown
+
 # Terminate already running bar instances
 killall -q polybar
 
@@ -37,7 +41,8 @@ if type "xrandr" > /dev/null 2>&1; then
         echo "Launching landscape bar on $m"
         MONITOR=$m polybar hdbar-left 2>&1 | tee -a /tmp/polybar-left.log & disown
         MONITOR=$m polybar hdbar-center 2>&1 | tee -a /tmp/polybar-center.log & disown
-        MONITOR=$m polybar hdbar-bottom 2>&1 | tee -a /tmp/polybar-right.log & disown
+        MONITOR=$m polybar hdbar-bottom 2>&1 | tee -a /tmp/polybar-bottom.log & disown
+        # MONITOR=$m polybar hdbar-right 2>&1 | tee -a /tmp/polybar-right.log & disown
     fi
   done
 else

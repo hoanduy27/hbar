@@ -4,7 +4,8 @@
 ; background = #943813
 ; background = #243a69
 ; background = #321d70
-background = #141538
+; background = #141538
+background = #06202b
 
 background-secondary = #b9addb
 
@@ -35,11 +36,14 @@ white = #ffffff
 ; ignore = #4a162bff
 ; ignore = #4b4bb8ee
 ignore = #55555599
+; ignore = #66b2b299
+
+artist_bg = #cfd8ff
 
 [bar/hdbar-left]
 monitor = ${env:MONITOR:}
 
-width = 22%
+width = 30%
 
 height = 18
 
@@ -75,7 +79,7 @@ font-0 = "Ubuntu Nerd Font:style=Regular:size=10;1"
 font-1 = monospace;2
 
 
-modules-left = date configure reload wallpaper xworkspaces xwindow
+modules-left = notification date configure reload wallpaper xworkspaces xwindow
 
 cursor-click = pointer
 
@@ -102,13 +106,13 @@ height = 15
 
 ; radius = 10%
 
-offset-x = 45%
+offset-x = 35%
 offset-y = 0
 
 ; dpi = 96
 
-background = ${colors.ignore}
-; background = ${colors.background-alt}
+; background = ${colors.ignore}
+background = ${colors.background-alt}
 
 ; foreground = ${colors.foreground}
 
@@ -119,8 +123,12 @@ line-size = 0pt
 ; border-size = 1
 
 border-color = ${colors.foreground}
-; separator = ""
-separator-background = ${colors.background}
+
+separator = " "
+separator-background = ${colors.ignore}
+
+; separator-background = ${colors.background}
+
 
 bottom = true
 
@@ -134,9 +142,65 @@ font-2 = "Noto Sans CJK JP:style=Regular:size=9;1"
 font-3 = monospace;2
 
 
-modules-left = pulseaudio cava nowplaying
+modules-left = bluetooth pulseaudio cava nowplaying
 ; modules-right = powermenu
 ; modules-right = memory cpu filesystem power nowplaying
+
+cursor-click = pointer
+
+cursor-scroll = ns-resize
+
+enable-ipc = true
+
+dim-value = 0.8
+
+scroll-up   = $HOME/.config/polybar/wm-left.sh
+scroll-down = $HOME/.config/polybar/wm-right.sh
+click-right = alacritty
+click-left = $HOME/.config/polybar/show-apps.sh
+
+
+wm-restack = bspwm
+
+[bar/hdbar-right]
+monitor = ${env:MONITOR:}
+
+width = 22%
+
+height = 18
+
+; radius = 10%
+
+offset-x = 73%
+offset-y = 1
+
+; dpi = 96
+
+background = ${colors.background-alt}
+; background = ${colors.ignore}
+
+; foreground = ${colors.foreground}
+
+
+line-size = 0pt
+; line-color = ${colors.warning}
+
+; border-size = 1
+
+border-color = ${colors.foreground}
+
+separator = " "
+; separator-foreground = ${colors.disabled}
+
+bottom = false
+
+fixed-center = false
+
+font-0 = "Ubuntu Nerd Font:style=Regular:size=10;1"
+font-1 = monospace;2
+
+
+modules-right = wlan bluetooth
 
 cursor-click = pointer
 
@@ -163,7 +227,7 @@ height = 18
 
 ; radius = 10%
 
-offset-x = 27%
+offset-x = 35%
 offset-y = 1
 
 ; dpi = 96
@@ -200,7 +264,7 @@ font-3 = monospace;2
 
 ; modules-right = cava pulseaudio bluetooth wlan battery powermenu
 
-modules-right = backlight bluetooth wlan memory cpu filesystem battery power
+modules-right = backlight wlan memory cpu filesystem battery power
 cursor-click = pointer
 
 cursor-scroll = ns-resize
@@ -295,9 +359,9 @@ type = internal/xworkspaces
 
 pin-workspaces = true
 
-label-active = %index% | %nwin% 󱇛
+label-active = %index% | %nwin%
 label-active-background = ${colors.background}
-label-active-underline = #ffffff
+label-active-underline = ${colors.ignore}
 
 ; label-active-background = ${colors.background-alt}
 
@@ -334,7 +398,7 @@ type = internal/xwindow
 format = 󱄞 <label>
 format-padding = 2
 
-label = %class:0:20:...%
+label = %class:0:20:...% | %title%
 
 label-empty = 
 
@@ -367,10 +431,10 @@ type = internal/pulseaudio
 
 format-volume-prefix-foreground = ${colors.primary}
 
-format-volume = 󰖀 <ramp-volume> | <label-volume>
+format-volume = 󰖀 <ramp-volume> %{B#1a2e1a} %{F#ffffff} <label-volume>
 format-volume-background = ${colors.background}
 format-volume-padding = 2
-format-muted = 󰝟 <ramp-volume> | <label-muted>
+format-muted = 󰝟 <ramp-volume> %{B#1a2e1a} %{F#ffffff} <label-muted>
 format-muted-background = ${colors.disabled}
 format-muted-padding = 2
 
@@ -393,14 +457,15 @@ label-muted = a silent voice
 ; ramp-volume-6 = 󰀦ff
 ; ramp-volume-7 = 󰀦fff
 
-ramp-volume-0 = 󰽯ppp▁▁▁▁▁▁▁
-ramp-volume-1 = ▂󰽯 pp▁▁▁▁▁▁
-ramp-volume-2 = ▂▃󰽯  p▁▁▁▁▁
-ramp-volume-3 = ▂▃▄󰽯 mp▁▁▁▁
-ramp-volume-4 = ▂▃▄▅󰽯 mf▁▁▁
-ramp-volume-5 = ▂▃▄▅▆󰽯  f▁▁
-ramp-volume-6 = ▂▃▄▅▆▇󰽯 ff▁
-ramp-volume-7 = ▂▃▄▅▆▇█󰽯fff
+ramp-volume-0 = ▁▁▁▁▁▁▁ | ppp
+ramp-volume-1 = ▂▁▁▁▁▁▁ | pp 
+ramp-volume-2 = ▂▃▁▁▁▁▁ | p  
+ramp-volume-3 = ▂▃▄▁▁▁▁ | mp
+ramp-volume-4 = ▂▃▄▅▁▁▁ | mf 
+ramp-volume-5 = ▂▃▄▅▆▁▁ | f  
+ramp-volume-6 = ▂▃▄▅▆▇▁ | ff 
+ramp-volume-7 = ▂▃▄▅▆▇█ | fff
+ramp-volume-8 = 󱐋▂▃▄▅▆▇█󱐋 | fff
 
 
 
@@ -408,6 +473,7 @@ ramp-volume-4-foreground = ${colors.warning}
 ramp-volume-5-foreground = ${colors.warning}
 ramp-volume-6-foreground = ${colors.urgent}
 ramp-volume-7-foreground = ${colors.urgent}
+ramp-volume-8-foreground = ${colors.urgent}
 
 click-right = pavucontrol
 
@@ -530,8 +596,8 @@ interface = wlp0s20f3
 
 interface-type = wireless
 
-label-connected = %{A3:alacritty --class polybar-popup -e nmtui connect:} %essid:0:15:...% %{F#ec9c5b}↑%upspeed% %{F#74d660}↓%downspeed%%{A}%{F-}
-label-disconnected = 󰤮%{F#707880} %{A3:~/.config/polybar/wifi.sh:} disconnected%{A}
+label-connected = %{A1:alacritty --class polybar-popup -e nmtui connect:} %essid:0:15:...% %{F#ec9c5b}↑%upspeed% %{F#74d660}↓%downspeed%%{A}%{F-}
+label-disconnected = 󰤮%{F#707880} %{A1:~/.config/polybar/wifi.sh:} disconnected%{A}
 
 ramp-signal-0 = 󰤟
 ramp-signal-1 = 󰤢
@@ -540,7 +606,7 @@ ramp-signal-3 = 󰤨
 label-packetloss-0 = 󰤠
 
 ; click-right = ~/.config/polybar/wifi.sh
-click-right = alacritty --class polybar-popup -e nmtui connect
+click-left = alacritty --class polybar-popup -e nmtui connect
 
 [module/eth]
 
@@ -564,7 +630,7 @@ date = %b %d, %H:%M
 
 date-alt = %H:%M
 
-label = %date%
+label = %{A1:~/.config/polybar/calendar.sh --popup:}%date%%{A}
 
 label-foreground = #000000
 label-background = #FFFFFF
@@ -591,6 +657,7 @@ label-foreground = #ffffff
 label-background = ${colors.ignore}
 label-padding = 3
 click-left = playerctl play-pause &
+click-middle = ~/.config/polybar/media-popup.sh &
 click-right = playerctl next &
 
 [module/configure]
@@ -733,6 +800,7 @@ type = custom/script
 exec = ~/.config/polybar/player-mpris-simple.sh
 interval = 3
 click-left = playerctl play-pause &
+click-middle = ~/.config/polybar/media-popup.sh &
 click-right = playerctl next &
 format-padding = 1
 format-background = ${colors.ignore}
@@ -839,11 +907,23 @@ tray-background = ${colors.background}
 type = custom/script
 exec = ~/.config/polybar/bluetooth.sh
 tail = true
-click-left = ~/.config/polybar/bluetooth.sh --toggle &
-click-right = gnome-control-center bluetooth
+click-left = alacritty --class polybar-popup -e bluetui
+click-right = ~/.config/polybar/bluetooth.sh --next &
 
 format-background = ${colors.background}
+; format-foreground = ${colors.black}
 format-padding = 0
+
+[module/notification]
+type = custom/script
+exec = ~/.config/polybar/notification.sh
+interval = 2
+click-left = ~/.config/polybar/notification.sh --history &
+click-middle = ~/.config/polybar/notification.sh --toggle-pause &
+click-right = ~/.config/polybar/notification.sh --close-all &
+
+format-background = ${colors.background}
+format-padding = 2
 [module/bspwm]
 type = internal/bspwm
 

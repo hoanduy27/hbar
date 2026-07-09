@@ -4,6 +4,7 @@ bar="▁▂▃▄▅▆▇█"
 # bar="▔🮂🮃▀🮄🮅🮆█"
 dict="s/;//g;"
 config_file="/tmp/polybar_cava_config"
+state_file="/tmp/polybar_cava_state"
 current_sink=""
 num_bars=7
 
@@ -76,8 +77,12 @@ start_cava() {
     # Start cava in background and capture its PID
     cava -p "$config_file" 2>/dev/null | while read -r line; do
         output=$(echo "$line" | sed "$dict")
+        bars="${output: -$num_bars}"
 
-        echo ${output: -$num_bars}
+        echo "$bars"
+        # Shared with other consumers (e.g. media-popup-backend.sh) so
+        # they don't need to spawn their own cava instance/config.
+        echo "$bars" > "$state_file"
     done &
     
     cava_pid=$!
@@ -100,7 +105,7 @@ cleanup() {
         rm -f /tmp/cava_polybar_pid
     fi
     pkill -f "cava -p $config_file" 2>/dev/null
-    rm -f "$config_file"
+    rm -f "$config_file" "$state_file"
     exit 0
 }
 
@@ -110,9 +115,9 @@ trap cleanup TERM INT EXIT
 # Initial start
 start_cava
 
-# Monitor for sink changes every 2 seconds
+# Monitor for sink changes every 1 second
 while true; do
-    sleep 2
+    sleep 1
     if check_sink_change; then
         start_cava
     fi
